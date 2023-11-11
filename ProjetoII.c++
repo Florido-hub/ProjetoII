@@ -285,11 +285,24 @@ void escolher_dificuldade(int &vidas) {
     }
 }
 
-bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha) {
+void hub(int vidas){
+    string dificuldade;
+    if (vidas == 0)
+        dificuldade = "DIFICIL";
+    if (vidas == 1)
+        dificuldade = "MEDIO";
+    if (vidas == 2)
+        dificuldade = "FACIL";
+
+    cout<< "VIDAS:" << vidas << "  -  DIFICULDADE:" << dificuldade;
+}
+
+bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha,int vidas) {
         int p1, p2;
     limpar_tela();
     Minefield();
     imprimir_tabuleiro(tabuleiro);
+    hub(vidas);
     cout<<" "<<endl;
     pular(2);
 
@@ -315,6 +328,7 @@ bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha) {
     }
 }
 
+
 int main()
 {
 
@@ -336,7 +350,7 @@ int main()
         bool partida;
 
         do {
-            partida = jogada(tabuleiro, topo_pilha);
+            partida = jogada(tabuleiro, topo_pilha, vidas);
             empilhar(topo_pilha, tabuleiro);
 
             if (!partida && vidas > 0) {
@@ -352,7 +366,7 @@ int main()
 
                 if (c == 'S') {
                     desfazer_movimento(tabuleiro, topo_pilha, vidas);
-                    partida = jogada(tabuleiro, topo_pilha);
+                    partida = jogada(tabuleiro, topo_pilha,vidas);
                 }
 
             }
