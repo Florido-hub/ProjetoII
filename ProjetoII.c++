@@ -339,12 +339,16 @@ int main()
             empilhar(topo_pilha, tabuleiro);
 
             if (!partida && vidas > 0) {
+                limpar_tela();
+                Minefield();
+                imprimir_tabuleiro(tabuleiro);
+                char c;
+                cout<<endl;
                 cout << "Vidas restantes = " << vidas << endl;
                 cout << "Ha uma bomba na posicao escolhida, deseja refazer a jogada? (S/N) ";
-                char c;
                 cin >> c;
 
-                c = toupper('c'); // transformar minúsculo para maiúsculo
+                c = toupper(c); // transformar minúsculo para maiúsculo
 
                 if (c == 'S') {
                     desfazer_movimento(tabuleiro, topo_pilha, vidas);
