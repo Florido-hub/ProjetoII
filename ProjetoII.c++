@@ -244,12 +244,13 @@ void desfazer_movimento(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha, int &vida
 
     for (int i = 0; i < TAM; i++) {
         for (int j = 0; j < TAM; j++) {
-            tabuleiro[i][j].posicao = pilha->matriz[i][j].posicao;
+            tabuleiro[i][j].posicao = p->matriz[i][j].posicao; // Usar a pilha desempilhada
         }
     }
 
     vidas--;
 }
+
 
 void escolher_dificuldade(int &vidas) {
     limpar_tela();
@@ -285,7 +286,7 @@ void escolher_dificuldade(int &vidas) {
 }
 
 bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha) {
-    int p1, p2;
+        int p1, p2;
     limpar_tela();
     Minefield();
     imprimir_tabuleiro(tabuleiro);
@@ -319,7 +320,7 @@ int main()
 
     char welcome;
     Minefield();
-    cout << "Bem-vindo ao Minefield! Pressione ESPACO para comecar: ";
+    cout << "Bem-vindo ao Minefield! Pressione ESPACO para comecar";
     welcome = _getch();
 
     if (welcome == ' '){
@@ -347,8 +348,7 @@ int main()
                 cout << "Vidas restantes = " << vidas << endl;
                 cout << "Ha uma bomba na posicao escolhida, deseja refazer a jogada? (S/N) ";
                 cin >> c;
-
-                c = toupper(c); // transformar minúsculo para maiúsculo
+                c = toupper(c);
 
                 if (c == 'S') {
                     desfazer_movimento(tabuleiro, topo_pilha, vidas);
@@ -357,6 +357,8 @@ int main()
 
             }
         } while (partida && !tabuleiro_preenchido(tabuleiro));
+        limpar_tela();
+        Minefield();
 
         if(partida && tabuleiro_preenchido(tabuleiro)) {
             cout << "parabens voce ganhou!" << endl;
