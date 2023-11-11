@@ -154,30 +154,6 @@ void sortear_bombas(Tabuleiro tabuleiro[TAM][TAM]) {
     }
 }
 
-bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha) {
-    int p1, p2;
-    cout << "Digite a linha e a coluna:" << endl;
-    cin >> p1;
-    cin >> p2;
-    cout << endl;
-
-    while (p1 < 0 || p1 > TAM || p2 < 0 || p2 > TAM) {
-        cout << "Valores invalidos, digite a linha e a coluna novamente:" << endl;
-        cin >> p1;
-        cin >> p2;
-        cout << endl;
-    }
-
-    achar_bomba(tabuleiro, p1, p2);
-    imprimir_tabuleiro(tabuleiro);
-
-    if (tabuleiro[p1][p2].posicao == 'B') {
-        return false;
-    } else {
-        return true;
-    }
-}
-
 // funções da pilha
 
 noPilha* criar_pilha() {
@@ -237,25 +213,6 @@ void pular(int quant){
     }
 }
 
-bool jogada(Tabuleiro tabuleiro[TAM][TAM]) {
-    int p1, p2;
-    limpar_tela();
-    Minefield();
-    imprimir_tabuleiro(tabuleiro);
-    cout<<" "<<endl;
-    pular(2);
-
-    cout << "digite a linha e a coluna:"<<endl;
-    cin >> p1;
-    cin >> p2;
-    achar_bomba(tabuleiro, p1, p2);
-
-    if (tabuleiro[p1][p2].posicao == 'B') {
-        return false;
-    } else {
-        return true;
-    }
-}
 
 void imprimir_pilha(noPilha *pilha) {
     if (pilha != NULL) {
@@ -285,6 +242,8 @@ void desfazer_movimento(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha, int &vida
 }
 
 void escolher_dificuldade(int &vidas) {
+    limpar_tela();
+    Minefield();
     cout << "Escolha a dificuldade do jogo: " << endl;
     cout << "1. Facil" << endl;
     cout << "2. Medio" << endl;
@@ -315,6 +274,36 @@ void escolher_dificuldade(int &vidas) {
     }
 }
 
+bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha) {
+    int p1, p2;
+    limpar_tela();
+    Minefield();
+    imprimir_tabuleiro(tabuleiro);
+    cout<<" "<<endl;
+    pular(2);
+
+    cout << "Digite a linha e a coluna:" << endl;
+    cin >> p1;
+    cin >> p2;
+    cout << endl;
+
+    while (p1 < 0 || p1 > TAM || p2 < 0 || p2 > TAM) {
+        cout << "Valores invalidos, digite a linha e a coluna novamente:" << endl;
+        cin >> p1;
+        cin >> p2;
+        cout << endl;
+    }
+
+    achar_bomba(tabuleiro, p1, p2);
+    imprimir_tabuleiro(tabuleiro);
+
+    if (tabuleiro[p1][p2].posicao == 'B') {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 int main()
 {
 
@@ -324,28 +313,7 @@ int main()
     welcome = _getch();
 
     if (welcome == ' '){
-        Tabuleiro tabuleiro[TAM][TAM];
-        criar_tabuleiro(tabuleiro);
-        sortear_bombas(tabuleiro);
-        bool partida = jogada(tabuleiro);
-
-        while(partida && !tabuleiro_preenchido(tabuleiro)) {
-            partida = jogada(tabuleiro);
-        }
-
-        if(partida && tabuleiro_preenchido(tabuleiro)) {
-            cout << "parabens voce ganhou! :)";
-        } else {
-            cout << "voce perdeu ;(";
-        }
-    }else{
-        cout << "Quem sabe podemos jogar na proxima vez ;(";
-        for(int i=0;i<5;i++){
-            cout<<endl;
-        }
-    }
-
-    int vidas = 0;
+        int vidas = 0;
     noPilha* topo_pilha = criar_pilha();
 
     Tabuleiro tabuleiro[TAM][TAM];
@@ -386,3 +354,5 @@ int main()
     imprimir_pilha(topo_pilha);
     return 0;
 }
+}
+
