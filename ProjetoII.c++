@@ -8,6 +8,7 @@
 #define YELLOW  "\033[33m"
 #define ORANGE "\033[33m"
 #define RED     "\033[31m"
+#define PURPLE "\033[38;2;128;0;128m"
 #define RESET   "\033[0m"
 
 using namespace std;
@@ -64,9 +65,9 @@ void imprimir_tabuleiro(Tabuleiro tabuleiro[TAM][TAM]) {
                     if (bombs_near == 2)
                         cout << YELLOW << tabuleiro[i][j].posicao << " "<< RESET;
                     if(bombs_near == 3)
-                        cout << ORANGE << tabuleiro[i][j].posicao << " "<< RESET;
-                    if (bombs_near == 4)
                         cout << RED << tabuleiro[i][j].posicao << " "<< RESET;
+                    if (bombs_near == 4)
+                        cout << PURPLE << tabuleiro[i][j].posicao << " "<< RESET;
                 } else {
                     cout << tabuleiro[i][j].posicao<< " ";
                 }
