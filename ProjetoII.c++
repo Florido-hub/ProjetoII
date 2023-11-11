@@ -314,45 +314,45 @@ int main()
 
     if (welcome == ' '){
         int vidas = 0;
-    noPilha* topo_pilha = criar_pilha();
+        noPilha* topo_pilha = criar_pilha();
 
-    Tabuleiro tabuleiro[TAM][TAM];
-    criar_tabuleiro(tabuleiro);
-    escolher_dificuldade(vidas);
-    imprimir_tabuleiro(tabuleiro);
-    sortear_bombas(tabuleiro);
+        Tabuleiro tabuleiro[TAM][TAM];
+        criar_tabuleiro(tabuleiro);
+        escolher_dificuldade(vidas);
+        imprimir_tabuleiro(tabuleiro);
+        sortear_bombas(tabuleiro);
 
-    bool partida;
+        bool partida;
 
-    do {
-        partida = jogada(tabuleiro, topo_pilha);
-        empilhar(topo_pilha, tabuleiro);
+        do {
+            partida = jogada(tabuleiro, topo_pilha);
+            empilhar(topo_pilha, tabuleiro);
 
-        if (!partida && vidas > 0) {
-            cout << "Vidas restantes = " << vidas << endl;
-            cout << "Ha uma bomba na posicao escolhida, deseja refazer a jogada? (S/N) ";
-            char c;
-            cin >> c;
+            if (!partida && vidas > 0) {
+                cout << "Vidas restantes = " << vidas << endl;
+                cout << "Ha uma bomba na posicao escolhida, deseja refazer a jogada? (S/N) ";
+                char c;
+                cin >> c;
 
-            c = toupper('c'); // transformar minúsculo para maiúsculo
+                c = toupper('c'); // transformar minúsculo para maiúsculo
 
-            if (c == 'S') {
-                desfazer_movimento(tabuleiro, topo_pilha, vidas);
-                partida = jogada(tabuleiro, topo_pilha);
+                if (c == 'S') {
+                    desfazer_movimento(tabuleiro, topo_pilha, vidas);
+                    partida = jogada(tabuleiro, topo_pilha);
+                }
+
             }
+        } while (partida && !tabuleiro_preenchido(tabuleiro));
 
+        if(partida && tabuleiro_preenchido(tabuleiro)) {
+            cout << "parabens voce ganhou!" << endl;
+        } else {
+            cout << "voce perdeu!" << endl;
         }
-    } while (partida && !tabuleiro_preenchido(tabuleiro));
 
-    if(partida && tabuleiro_preenchido(tabuleiro)) {
-        cout << "parabens voce ganhou!" << endl;
-    } else {
-        cout << "voce perdeu!" << endl;
+        cout << "pilha com a matriz de jogadas do usuario:" << endl;
+        imprimir_pilha(topo_pilha);
+        return 0;
     }
-
-    cout << "pilha com a matriz de jogadas do usuario:" << endl;
-    imprimir_pilha(topo_pilha);
-    return 0;
-}
 }
 
