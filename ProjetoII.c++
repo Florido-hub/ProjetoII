@@ -40,31 +40,40 @@ void criar_tabuleiro(Tabuleiro tabuleiro[TAM][TAM]) {
 
 void imprimir_tabuleiro(Tabuleiro tabuleiro[TAM][TAM]) {
     cout << "    ";
-
     for (int k = 0; k < TAM; k++) {
         cout << k << " ";
     }
-
     cout << endl;
 
     for (int i = 0; i < TAM; i++) {
-        cout << i << " | ";
+        cout << i << " | " ;
         for (int j = 0; j < TAM; j++) {
             if (tabuleiro[i][j].posicao == 'B') {
-                if(VER_BOMBAS) {
-                    cout << tabuleiro[i][j].posicao << " ";
+                if (VER_BOMBAS) {
+                    cout << tabuleiro[i][j].posicao << " "<< RESET;
                 } else {
-                    cout << "- ";
+                    cout << tabuleiro[i][j].posicao<<" ";
                 }
             } else {
-                cout << tabuleiro[i][j].posicao << " ";
+                int bombs_near = tabuleiro[i][j].posicao - '0';
+                if (bombs_near >= 0) {
+                    if (bombs_near == 0)
+                        cout << GREEN << tabuleiro[i][j].posicao << " "<< RESET;
+                    if (bombs_near == 1)
+                        cout << CYAN << tabuleiro[i][j].posicao << " "<< RESET;
+                    if (bombs_near == 2)
+                        cout << YELLOW << tabuleiro[i][j].posicao << " "<< RESET;
+                    if(bombs_near == 3)
+                        cout << ORANGE << tabuleiro[i][j].posicao << " "<< RESET;
+                    if (bombs_near == 4)
+                        cout << RED << tabuleiro[i][j].posicao << " "<< RESET;
+                } else {
+                    cout << tabuleiro[i][j].posicao<< " ";
+                }
             }
-
         }
-        cout << "|"<<endl;
+        cout << "|" << endl;
     }
-
-    cout << endl;
 }
 
 bool tabuleiro_preenchido(Tabuleiro tabuleiro[TAM][TAM]) {
