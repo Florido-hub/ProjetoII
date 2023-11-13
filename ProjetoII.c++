@@ -103,7 +103,7 @@ void tela_derrota() {
 void tela_inicial() {
     char welcome;
     Minefield();
-    cout << "Bem-vindo ao Minefield! Pressione ESPACO para comecar";
+    cout << "Bem-vindo ao Minefield! Pressione ESPACO para comecar!";
     welcome = _getch();
 
     if (welcome == ' ') {
@@ -311,7 +311,7 @@ void escolher_dificuldade(int &vidas) {
     cin >> dificuldade;
 
     while (dificuldade < 0 || dificuldade > 4) {
-        cout << "Escolha uma opcao valida: ";
+        cout << "[!]Escolha uma opcao valida: ";
         cin >> dificuldade;
     }
 
@@ -367,7 +367,13 @@ bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha,int vidas, string difi
     bool verificar_p2 = p2_char == '0' || p2_char == '1' || p2_char == '2' || p2_char == '3' || p2_char == '4' || p2_char == '5' || p2_char == '6' || p2_char == '7';
 
     while (!verificar_p1 && !verificar_p2) {
-        cout << "Valores invalidos, digite a linha e a coluna novamente:" << endl;
+        limpar_tela();
+        Minefield();
+        imprimir_tabuleiro(tabuleiro);
+        status_partida(vidas,dificuldade);
+        cout<<" "<<endl;
+        pular(2);
+        cout << "[!]Valores invalidos, digite a linha e a coluna novamente:" << endl;
         cin >> p1_char;
         cin >> p2_char;
         cout << endl;
