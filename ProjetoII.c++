@@ -347,7 +347,7 @@ void status_partida(int vidas,string dificuldade){
 }
 
 bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha,int vidas, string dificuldade) {
-    int p1, p2;
+    char p1_char, p2_char;
     limpar_tela();
     Minefield();
     imprimir_tabuleiro(tabuleiro);
@@ -356,15 +356,27 @@ bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha,int vidas, string difi
     pular(2);
 
     cout << "Digite a linha e a coluna:" << endl;
-    cin >> p1;
-    cin >> p2;
+    cin >> p1_char;
+    cin >> p2_char;
     cout << endl;
 
-    while (p1 < 0 || p1 > TAM || p2 < 0 || p2 > TAM) {
+    int p1 = p1_char - '0';
+    int p2 = p2_char - '0';
+
+    bool verificar_p1 = p1_char == '0' || p1_char == '1' || p1_char == '2' || p1_char == '3' || p1_char == '4' || p1_char == '5' || p1_char == '6' || p1_char == '7';
+    bool verificar_p2 = p2_char == '0' || p2_char == '1' || p2_char == '2' || p2_char == '3' || p2_char == '4' || p2_char == '5' || p2_char == '6' || p2_char == '7';
+
+    while (!verificar_p1 && !verificar_p2) {
         cout << "Valores invalidos, digite a linha e a coluna novamente:" << endl;
-        cin >> p1;
-        cin >> p2;
+        cin >> p1_char;
+        cin >> p2_char;
         cout << endl;
+
+        p1 = p1_char - '0';
+        p2 = p2_char - '0';
+
+        verificar_p1 = p1_char == '0' || p1_char == '1' || p1_char == '2' || p1_char == '3' || p1_char == '4' || p1_char == '5' || p1_char == '6' || p1_char == '7';
+        verificar_p2 = p2_char == '0' || p2_char == '1' || p2_char == '2' || p2_char == '3' || p2_char == '4' || p2_char == '5' || p2_char == '6' || p2_char == '7';
     }
 
     achar_bomba(tabuleiro, p1, p2);
@@ -376,6 +388,7 @@ bool jogada(Tabuleiro tabuleiro[TAM][TAM], noPilha* pilha,int vidas, string difi
         return true;
     }
 }
+
 
 // funções da pilha
 
